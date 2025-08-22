@@ -10,6 +10,33 @@ $env.config.keybindings = [
         send: executehostcommand,
         cmd: "clear"
     }
+},
+{
+    name: accept_history_hint_completion
+    modifier: control
+    keycode: char_l
+    mode: [emacs, vi_normal, vi_insert]
+    event: {
+        send: HistoryHintComplete,
+    }
+},
+{
+    name: history_down
+    modifier: control
+    keycode: char_j
+    mode: [emacs, vi_normal, vi_insert]
+    event: {
+        send: PreviousHistory,
+    }
+},
+{
+    name: history_down
+    modifier: control
+    keycode: char_k
+    mode: [emacs, vi_normal, vi_insert]
+    event: {
+        send: NextHistory,
+    }
 }
 ]
 
