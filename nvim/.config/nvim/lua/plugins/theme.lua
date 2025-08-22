@@ -24,14 +24,14 @@ return {
         },
         color_overrides = {
           mocha = {
-            base = '#0b0b12',
-            mantle = '#11111a',
-            crust = '#191926',
+            base = '#0a0a0a',
+            mantle = '#121212',
+            crust = '#191919',
           },
         },
         custom_highlights = function(colors)
           return {
-            CursorLine = { bg = '#252538' },
+            CursorLine = { bg = colors.mantle },
             StatusLineNormal = {
               fg = colors.overlay0,
             },

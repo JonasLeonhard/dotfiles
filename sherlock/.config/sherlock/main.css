@@ -1,10 +1,8 @@
 :root {
     --background: hsl(0, 0%, 0%);
-    --foreground: hsl(0, 0%, 15%);
+    --foreground: hsl(0, 0%, 9.8%);
     --text: hsl(53, 100%, 97%);
-    --border: hsl(0, 0%, 8%);
-
-
+    --border: hsl(0, 0%, 7.1%);
     --tag-background: hsl(180, 0%, 30%);
     --tag-color: hsl(220, 10%, 100%);
     --error: hsl(4, 71%, 62%);
