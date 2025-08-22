@@ -5,7 +5,7 @@
 
 entries=" Lock\n󰒲 Sleep\n󰍃 Logout\n⏻ Shutdown"
 
-selected=$(echo -e $entries | wofi --dmenu --prompt "Power Menu")
+selected=$(echo -e $entries | sherlock)
 
 case $selected in
   " Lock")
