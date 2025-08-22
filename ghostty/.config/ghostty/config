@@ -1,0 +1,7 @@
+command = nu
+font-family = "CommitMono Nerd Font"
+font-size = 13
+theme = catppuccin-mocha
+background = #0b0b12
+cursor-text = #000000
+window-save-state = always

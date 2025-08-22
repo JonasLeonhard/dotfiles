@@ -1,0 +1,157 @@
+format = """
+$character\
+$directory\
+[](fg:blue bg:peach)\
+$git_branch\
+$git_status\
+$git_metrics\
+[](fg:peach bg:yellow)\
+[\
+$c\
+$cmake\
+$container\
+$dart\
+$deno\
+$dotnet\
+$golang\
+$java\
+$kotlin\
+$kubernetes\
+$lua\
+$nodejs\
+$php\
+$python\
+$rust\
+$zig\
+](fg: #ffffff bg:yellow)\
+[](fg:yellow bg:flamingo)\
+[\
+$cmd_duration\
+$git_commit\
+$git_state\
+$docker_context\
+](fg:#ffffff bg:flamingo)\
+[ ](fg:flamingo)
+"""
+# Set 'foo' as custom color palette
+palette = 'catppuccin'
+command_timeout = 3000
+
+# Define custom colors
+[palettes.catppuccin]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+
+
+[git_commit]
+style = "fg:#ffffff bg:flamingo"
+format = '[ #$hash $tag]($style)'
+
+[git_state]
+style = "fg:#ffffff bg:flamingo"
+format = '[\[$state $progress_current/$progress_total\]]($style)'
+
+[git_branch]
+style = "fg:#000000 bg:peach"
+format = "[ $symbol$branch(:$remote_branch)]($style)"
+
+[git_status]
+style = "fg:#000000 bg:peach"
+format = '[ $all_status$ahead_behind ]($style)'
+
+[directory]
+style = "bg:blue fg:#000000"
+format = "[ $path ]($style)"
+truncate_to_repo = false
+
+# Replace the "❯" und "x" symbol in the prompt with vim mode
+[character]
+success_symbol = "[](green)[ ](bold fg:#000000 bg:green)[](bg:blue fg:green)"
+error_symbol = "[](red)[ ](bold fg:#000000 bg:red)[](bg:blue fg:red)"
+vimcmd_symbol = "[](lavender)[ ](bold fg:#000000 bg:lavender)[](bg:blue fg:lavender)"
+format = "$symbol"
+
+[cmd_duration]
+style = "fg:#ffffff bg:flamingo"
+format = " ﮫ [$duration]($style) "
+
+[docker_context]
+style = "fg:#ffffff bg:flamingo"
+format = "[ $symbol]($style)"
+
+[java]
+style = "fg:#ffffff bg:yellow"
+format = "[ $symbol]($style)"
+
+[kubernetes]
+style = "fg:#ffffff bg:yellow"
+
+[c]
+style = "fg:#ffffff bg:yellow"
+format = "[ $symbol]($style)"
+
+[cmake]
+style = "fg:#ffffff bg:yellow"
+format = "[ $symbol]($style)"
+
+[container]
+style = "fg:#ffffff bg:yellow"
+
+[dart]
+style = "fg:#ffffff bg:yellow"
+format = "[ $symbol]($style)"
+
+[deno]
+style = "fg:#ffffff bg:yellow"
+format = "[ $symbol]($style)"
+
+[dotnet]
+style = "fg:#ffffff bg:yellow"
+format = "[ $symbol(🎯 $tfm )]($style)"
+
+[golang]
+symbol = " "
+style = "fg:#ffffff bg:yellow"
+format = '[ $symbol]($style)'
+
+[kotlin]
+style = "fg:#ffffff bg:yellow"
+format = '[ $symbol]($style)'
+
+[lua]
+style = "fg:#ffffff bg:yellow"
+format = '[ $symbol]($style)'
+
+[nodejs]
+style = "fg:#ffffff bg:yellow"
+format = '[ $symbol]($style)'
+not_capable_style = "fg:red bg:yellow"
+
+[php]
+style = "fg:#ffffff bg:yellow"
+format = '[ $symbol]($style)'
+
+[python]
+style = "fg:#ffffff bg:yellow"
+format = '[ $symbol]($style)'
+
+[rust]
+style = "fg:#ffffff bg:yellow"
+format = '[ $symbol]($style)'
+
+[zig]
+symbol = ' '
+style = "fg:#ffffff bg:yellow"
+format = '[ $symbol]($style)'
