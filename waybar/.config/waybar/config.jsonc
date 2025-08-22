@@ -5,6 +5,7 @@
   "spacing": 0,
   "height": 26,
   "modules-left": [
+    "custom/exit",
     "hyprland/workspaces"
   ],
   "modules-center": [
@@ -108,5 +109,16 @@
   "tray": {
     "icon-size": 12,
     "spacing": 12
-  }
+  },
+  "custom/exit": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "~/.config/waybar/powermenu.bash",
+    "actions": {
+      "Lock 🔒": "hyprlock",
+      "Sleep 😴": "systemctl suspend",
+      "Logout 🚪": "hyprctl dispatch exit",
+      "Shutdown ⏻": "systemctl poweroff"
+    }
+  },
 }
