@@ -16,7 +16,9 @@
     "bluetooth",
     "network",
     "pulseaudio",
+    "temperature",
     "cpu",
+    "memory",
     "clock",
   ],
   "hyprland/workspaces": {
@@ -43,10 +45,20 @@
       "5": []
     }
   },
+  "temperature": {
+      "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon4/temp1_input",
+      "format": "󰍛 {temperatureC}°C "
+  },
   "cpu": {
-    "interval": 5,
-    "format": "󰍛",
+    "interval": 2,
+    "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}{icon12}{icon13}{icon14}{icon15}",
+    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
     "on-click": "ghostty -e btop"
+  },
+  "memory": {
+    "interval": 30,
+    "format": "{}% RAM |",
+    "max-length": 10
   },
   "clock": {
     "format": "{:%A %H:%M}",
