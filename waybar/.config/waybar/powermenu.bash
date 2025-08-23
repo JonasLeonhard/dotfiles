@@ -5,7 +5,7 @@
 
 entries=" Lock\n󰒲 Sleep\n󰍃 Logout\n⏻ Shutdown"
 
-selected=$(echo -e $entries | sherlock)
+selected=$(echo -e $entries | tofi)
 
 case $selected in
   " Lock")
