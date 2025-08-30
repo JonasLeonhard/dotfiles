@@ -4,6 +4,7 @@
 [user]
 	email = jonasleonhardfl@gmail.com
 	name = jonas
+	signingkey = A311D352DC3F4934E7C19AC7A05569E4A3E1B985
 
 [core]
 	editor = nvim

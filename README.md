@@ -45,7 +45,7 @@ mkdir ~/git; cd ~/git;
 
 # install packages:
 sudo pacman -Sy otf-commit-mono-nerd nushell git firefox zoxide starship curl base-devel ghostty hyprlock hypridle hyprshot wl-clipboard bat stow waybar
-git clone git@github.com:JonasLeonhard/dotfiles.git # this might require adding your ssh key to github https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+git clone git@github.com:JonasLeonhard/dotfiles.git # this might require adding your ssh key to github https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent; also do: https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key
 
 # AUR packages w. yay:
 git clone --branch yay --single-branch https://github.com/archlinux/aur.git yay; cd yay; makepkg -si;
