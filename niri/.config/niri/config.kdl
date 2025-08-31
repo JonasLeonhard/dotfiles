@@ -10,9 +10,8 @@ binds {
     // Keybinds handled with whichkey like leaderkey
     Mod+A hotkey-overlay-title="Which Key" { spawn "wlr-which-key"; }
 
-    Mod+E hotkey-overlay-title="Filemanager: nemo" { spawn "nemo"; }
     Mod+Space hotkey-overlay-title="Run an Application: tofi" { spawn "bash" "-c" "$(tofi-drun)"; }
-    Mod+Shift+O hotkey-overlay-title="Rename Workspace (tofi)" { spawn-sh "~/.config/niri/workspace-rename.bash"; }
+
     Mod+Shift+Q hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+Shift+Ctrl+Q hotkey-overlay-title="Go to sddm: quit niri" { quit; }
     Mod+Ctrl+Q hotkey-overlay-title="Monitor sleep" { power-off-monitors; }
