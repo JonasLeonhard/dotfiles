@@ -1,0 +1,232 @@
+# Theming
+font: CommitMono Nerd Font 12
+background: "#0a0a0a"
+color: "#ffffff"
+border: "#0a0a0a"
+separator: " ➜ "
+border_width: 2
+corner_r: 0
+padding: 15 # Defaults to corner_r
+rows_per_column: 15 # No limit by default
+column_padding: 25 # Defaults to padding
+
+# Anchor and margin
+anchor: bottom-left # One of center, left, right, top, bottom, bottom-left, top-left, etc.
+# Only relevant when anchor is not center
+margin_right: 0
+margin_bottom: 0
+margin_left: 0
+margin_top: 0
+
+# Permits key bindings that conflict with compositor key bindings.
+# Default is `false`.
+inhibit_compositor_keyboard_shortcuts: true
+
+# Try to guess the correct keyboard layout to use. Default is `false`.
+auto_kbd_layout: true
+
+menu:
+  # Window
+  - key: "w"
+    desc:  window
+    submenu:
+      - key: "c"
+        desc: " Columns"
+        submenu:
+          - key: "c"
+            desc: "󰲏 switch-preset-column-width"
+            cmd: niri msg action switch-preset-column-width
+            keep_open: true
+          - key: "s"
+            desc: "consume-window-into-column"
+            cmd: niri msg action consume-window-into-column
+          - key: "S"
+            desc: "expel-window-from-column"
+            cmd: niri msg action expel-window-from-column
+          - key: "h"
+            desc: "consume-or-expel-window-left"
+            cmd: niri msg action consume-or-expel-window-left
+          - key: "l"
+            desc: "consume-or-expel-window-right"
+            cmd: niri msg action consume-or-expel-window-right
+          - key: "m"
+            desc: "󰡎 maximize-column"
+            cmd: niri msg action maximize-column
+          - key: "e"
+            desc: "󰡎 expand-column-to-available-width"
+            cmd: niri msg action expand-column-to-available-width
+          - key: "C"
+            desc: "center-column"
+            cmd: niri msg action center-column
+          - key: "+"
+            desc: " set-column-width +10%"
+            cmd: niri msg action set-column-width "+10%"
+            keep_open: true
+          - key: "-"
+            desc: " set-column-width -10%"
+            cmd: niri msg action set-column-width "-10%"
+            keep_open: true
+          - key: "H"
+            desc: "move-column-left"
+            cmd: niri msg action move-column-left
+            keep_open: true
+          - key: "L"
+            desc: "move-column-right"
+            cmd: niri msg action move-column-right
+            keep_open: true
+          - key: "J"
+            desc: "move-column-to-workspace-down"
+            cmd: niri msg action move-column-to-workspace-down
+            keep_open: true
+          - key: "K"
+            desc: "move-column-to-workspace-up"
+            cmd: niri msg action move-column-to-workspace-up
+            keep_open: true
+      - key: "r"
+        desc: "󱪷 Rows"
+        submenu:
+          - key: "r"
+            desc: "󰲏 switch-preset-window-height"
+            cmd: niri msg action switch-preset-window-height
+            keep_open: true
+          - key: "+"
+            desc: " set-window-height +10%"
+            cmd: niri msg action set-window-height "+10%"
+            keep_open: true
+          - key: "-"
+            desc: " set-window-height -10%"
+            cmd: niri msg action set-window-height "-10%"
+            keep_open: true
+      - key: "q"
+        desc: " close-window"
+        cmd: niri msg action close-window
+      - key: "o"
+        desc: " toggle-overview"
+        cmd: niri msg action toggle-overview
+      - key: "t"
+        desc: " toggle-column-tabbed-display"
+        cmd: niri msg action toggle-column-tabbed-display
+      - key: "f"
+        desc: " fullscreen-window"
+        cmd: niri msg action fullscreen-window
+      - key: "F"
+        desc: "󰖲 toggle-window-floating"
+        cmd: niri msg action toggle-window-floating
+      - key: "l"
+        desc: "focus-column-right"
+        cmd: niri msg action focus-column-right
+        keep_open: true
+      - key: "h"
+        desc: "focus-column-left"
+        cmd: niri msg action focus-column-left
+        keep_open: true
+      - key: "j"
+        desc: "focus-window-or-workspace-down"
+        cmd: niri msg action focus-window-or-workspace-down
+        keep_open: true
+      - key: "k"
+        desc: "focus-window-or-workspace-up"
+        cmd: niri msg action focus-window-or-workspace-up
+        keep_open: true
+      - key: "1"
+        desc: "move-column-to-workspace 1"
+        cmd: niri msg action move-column-to-workspace 1
+      - key: "2"
+        desc: "move-column-to-workspace 2"
+        cmd: niri msg action move-column-to-workspace 2
+      - key: "3"
+        desc: "move-column-to-workspace 3"
+        cmd: niri msg action move-column-to-workspace 3
+      - key: "4"
+        desc: "move-column-to-workspace 4"
+        cmd: niri msg action move-column-to-workspace 4
+      - key: "5"
+        desc: "move-column-to-workspace 5"
+        cmd: niri msg action move-column-to-workspace 5
+      - key: "6"
+        desc: "move-column-to-workspace 6"
+        cmd: niri msg action move-column-to-workspace 6
+      - key: "7"
+        desc: "move-column-to-workspace 7"
+        cmd: niri msg action move-column-to-workspace 7
+      - key: "8"
+        desc: "move-column-to-workspace 8"
+        cmd: niri msg action move-column-to-workspace 8
+      - key: "9"
+        desc: "move-column-to-workspace 9"
+        cmd: niri msg action move-column-to-workspace 9
+  - key: "q"
+    desc: "close-window"
+    cmd: niri msg action close-window
+  - key: "l"
+    desc: "focus-column-right"
+    cmd: niri msg action focus-column-right
+  - key: "h"
+    desc: "focus-column-left"
+    cmd: niri msg action focus-column-left
+  - key: "j"
+    desc: "focus-window-or-workspace-down"
+    cmd: niri msg action focus-window-or-workspace-down
+  - key: "k"
+    desc: "focus-window-or-workspace-up"
+    cmd: niri msg action focus-window-or-workspace-up
+  - key: "1"
+    desc: "focus-workspace 1"
+    cmd: niri msg action focus-workspace 1
+  - key: "2"
+    desc: "focus-workspace 2"
+    cmd: niri msg action focus-workspace 2
+  - key: "3"
+    desc: "focus-workspace 3"
+    cmd: niri msg action focus-workspace 3
+  - key: "4"
+    desc: "focus-workspace 4"
+    cmd: niri msg action focus-workspace 4
+  - key: "5"
+    desc: "focus-workspace 5"
+    cmd: niri msg action focus-workspace 5
+  - key: "6"
+    desc: "focus-workspace 6"
+    cmd: niri msg action focus-workspace 6
+  - key: "7"
+    desc: "focus-workspace 7"
+    cmd: niri msg action focus-workspace 7
+  - key: "8"
+    desc: "focus-workspace 8"
+    cmd: niri msg action focus-workspace 8
+  - key: "9"
+    desc: "focus-workspace 9"
+    cmd: niri msg action focus-workspace 9
+
+  # Programs
+  - key: "t"
+    desc: " terminal"
+    cmd: niri msg action spawn -- ghostty
+  - key: "b"
+    desc: "󰈹 browser"
+    cmd: niri msg action spawn -- firefox
+  - key: "e"
+    desc: " explorer"
+    cmd: niri msg action spawn -- nemo
+  - key: "s"
+    desc:  screenshot
+    cmd: niri msg action screenshot
+
+  - key: "P"
+    desc: 󰐥 power
+    submenu:
+      - key: "l"
+        desc:  lock
+        cmd: swaylock
+      - key: "s"
+        desc: 󰒲 sleep
+        cmd: systemctl suspend
+      - key: "r"
+        desc: 󰜉 restart
+        cmd: reboot
+      - key: "l"
+        desc: 󰍃 logout
+        cmd: nini cmd action exit
+      - key: "x"
+        desc: ⏻ shutdown
+        cmd: systemctl poweroff
