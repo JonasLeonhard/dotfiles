@@ -214,7 +214,6 @@ menu:
   - key: "r"
     desc: "rename workspace"
     cmd: bash ~/.config/niri/workspace-rename.bash
-    keep_open: true
 
   - key: "P"
     desc: 󰐥 power
