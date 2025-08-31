@@ -3,6 +3,7 @@
 // Startup
 spawn-at-startup "waybar"
 spawn-at-startup "wl-clipboard"
+spawn-at-startup "swayidle" "-w" "timeout" "601" "niri msg action power-off-monitors" "timeout" "600" "swaylock -f" "before-sleep" "swaylock -f"
 
 binds {
     Mod+Shift+Z { show-hotkey-overlay; }
