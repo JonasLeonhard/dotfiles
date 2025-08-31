@@ -51,3 +51,5 @@ $env.EDITOR = "nvim"
 $env.VISUAL = "nvim"
 
 $env.STARSHIP_CONFIG = $"($env.HOME)/.config/starship/starship.toml"
+
+$env.path ++= ["~/.cargo/bin"]

@@ -6,10 +6,10 @@
   "height": 26,
   "modules-left": [
     "custom/exit",
-    "hyprland/workspaces"
+    "niri/workspaces"
   ],
   "modules-center": [
-    "hyprland/submap",
+    "niri/window"
   ],
   "modules-right": [
     "group/tray-expander",
@@ -21,15 +21,12 @@
     "memory",
     "clock",
   ],
-  "hyprland/workspaces": {
+  "niri/workspaces": {
     "on-click": "activate",
-    "format": "{icon} {name}",
+    "format": "{icon} {index} {name}",
     "format-icons": {
       "default": "",
       "active": ""
-    },
-    "persistent-workspaces": {
-      "1": []
     }
   },
   "temperature": {
