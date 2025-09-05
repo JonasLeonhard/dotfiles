@@ -49,7 +49,6 @@ input {
         xkb {
             layout "de"
             variant "mac"
-            options "lv3:lalt_switch"
         }
         repeat-delay 250
         repeat-rate 65
