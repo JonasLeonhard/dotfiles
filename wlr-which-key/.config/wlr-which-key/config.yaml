@@ -207,7 +207,7 @@ menu:
     cmd: niri msg action spawn -- firefox
   - key: "e"
     desc: " explorer"
-    cmd: niri msg action spawn -- nemo
+    cmd: niri msg action spawn -- nautilus
   - key: "s"
     desc:  screenshot
     cmd: niri msg action screenshot
