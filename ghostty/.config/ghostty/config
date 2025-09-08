@@ -1,8 +1,9 @@
 command = nu
-font-family = "CommitMono Nerd Font"
-font-size = 13
+font-family = "IosevkaTerm Nerd Font"
+font-size = 18
 theme = catppuccin-mocha
 background = #0a0a0a
 cursor-text = #000000
 window-save-state = always
 window-decoration = none
+macos-titlebar-style = hidden
