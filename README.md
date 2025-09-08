@@ -44,7 +44,7 @@ hyprctl reload
 mkdir ~/git; cd ~/git;
 
 # install packages:
-sudo pacman -Sy otf-commit-mono-nerd nushell git firefox zoxide starship curl base-devel ghostty bat stow waybar wiremix blueberry less fd tree
+sudo pacman -Sy ttf-iosevkaterm-nerd nushell git firefox zoxide starship curl base-devel ghostty bat stow waybar wiremix blueberry less fd tree
 sudo pacman -Sy niri xwayland-satellite swaylock swayidle wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-gnome gnome-keyring wlr-which-key # niri deps
 git clone git@github.com:JonasLeonhard/dotfiles.git # this might require adding your ssh key to github https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent; also do: https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key
 
@@ -75,7 +75,7 @@ sudo nvim /usr/share/sddm/themes/terminal/theme.conf
 sudo pacman -R kitty
 
 # Theming (https://github.com/P-ti-bob/hyprland/blob/main/docs/theming.md)
-# Set gtk font & theme to dark + CommitMono
+# Set gtk font & theme to dark + IosevkaTerm
 pacman -S nwg-look
 # style qt + kde
 sudo -E kvantummanager
