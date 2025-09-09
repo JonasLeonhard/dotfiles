@@ -1,0 +1,43 @@
+[cursor.vi_mode_style]
+blinking = "Off"
+shape = "Block"
+
+[env]
+SHELL = "/opt/homebrew/bin/nu"
+
+[terminal.shell]
+args = ["--login"]
+program = "/opt/homebrew/bin/nu"
+
+[font]
+size = 18.0
+offset.y = 2
+
+[font.bold]
+family = "ZedMono Nerd Font"
+style = "Bold"
+
+[font.bold_italic]
+family = "ZedMono Nerd Font"
+style = "Bold Italic"
+
+[font.italic]
+family = "ZedMono Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "ZedMono Nerd Font"
+style = "Regular"
+
+[window]
+decorations = "buttonless"
+opacity = 1
+startup_mode = "Maximized"
+
+[window.padding]
+x = 5
+y = 5
+
+[general]
+live_config_reload = true
+import = ["~/.config/alacritty/catppuccin-mocha.toml"]

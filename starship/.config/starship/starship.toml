@@ -6,30 +6,11 @@ $git_branch\
 $git_status\
 $git_metrics\
 [](fg:peach bg:yellow)\
-[\
-$c\
-$cmake\
-$container\
-$dart\
-$deno\
-$dotnet\
-$golang\
-$java\
-$kotlin\
-$kubernetes\
-$lua\
-$nodejs\
-$php\
-$python\
-$rust\
-$zig\
-](fg: #ffffff bg:yellow)\
 [](fg:yellow bg:flamingo)\
 [\
 $cmd_duration\
 $git_commit\
 $git_state\
-$docker_context\
 ](fg:#ffffff bg:flamingo)\
 [ ](fg:flamingo)
 """
@@ -86,72 +67,3 @@ format = "$symbol"
 [cmd_duration]
 style = "fg:#ffffff bg:flamingo"
 format = " ﮫ [$duration]($style) "
-
-[docker_context]
-style = "fg:#ffffff bg:flamingo"
-format = "[ $symbol]($style)"
-
-[java]
-style = "fg:#ffffff bg:yellow"
-format = "[ $symbol]($style)"
-
-[kubernetes]
-style = "fg:#ffffff bg:yellow"
-
-[c]
-style = "fg:#ffffff bg:yellow"
-format = "[ $symbol]($style)"
-
-[cmake]
-style = "fg:#ffffff bg:yellow"
-format = "[ $symbol]($style)"
-
-[container]
-style = "fg:#ffffff bg:yellow"
-
-[dart]
-style = "fg:#ffffff bg:yellow"
-format = "[ $symbol]($style)"
-
-[deno]
-style = "fg:#ffffff bg:yellow"
-format = "[ $symbol]($style)"
-
-[dotnet]
-style = "fg:#ffffff bg:yellow"
-format = "[ $symbol(🎯 $tfm )]($style)"
-
-[golang]
-symbol = " "
-style = "fg:#ffffff bg:yellow"
-format = '[ $symbol]($style)'
-
-[kotlin]
-style = "fg:#ffffff bg:yellow"
-format = '[ $symbol]($style)'
-
-[lua]
-style = "fg:#ffffff bg:yellow"
-format = '[ $symbol]($style)'
-
-[nodejs]
-style = "fg:#ffffff bg:yellow"
-format = '[ $symbol]($style)'
-not_capable_style = "fg:red bg:yellow"
-
-[php]
-style = "fg:#ffffff bg:yellow"
-format = '[ $symbol]($style)'
-
-[python]
-style = "fg:#ffffff bg:yellow"
-format = '[ $symbol]($style)'
-
-[rust]
-style = "fg:#ffffff bg:yellow"
-format = '[ $symbol]($style)'
-
-[zig]
-symbol = ' '
-style = "fg:#ffffff bg:yellow"
-format = '[ $symbol]($style)'
