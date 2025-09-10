@@ -1,5 +1,5 @@
 command = /opt/homebrew/bin/nu
-font-family = "ZedMono Nerd Font"
+font-family = "IosevkaTerm Nerd Font"
 font-size = 18
 theme = catppuccin-mocha
 background = #0a0a0a
