@@ -201,7 +201,7 @@ menu:
   # Programs
   - key: "t"
     desc: " terminal"
-    cmd: niri msg action spawn -- ghostty
+    cmd: niri msg action spawn -- wezterm
   - key: "b"
     desc: "󰈹 browser"
     cmd: niri msg action spawn -- firefox

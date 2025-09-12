@@ -44,19 +44,19 @@ hyprctl reload
 mkdir ~/git; cd ~/git;
 
 # install packages:
-sudo pacman -Sy ttf-iosevkaterm-nerd nushell git firefox zoxide starship curl base-devel ghostty bat stow waybar wiremix blueberry less fd tree
+sudo pacman -Sy ttf-iosevkaterm-nerd nushell git firefox zoxide starship curl base-devel wezterm bat stow waybar wiremix blueberry less fd tree
 sudo pacman -Sy niri xwayland-satellite swaylock swayidle wl-clipboard xdg-desktop-portal-gtk xdg-desktop-portal-gnome gnome-keyring wlr-which-key # niri deps
 git clone git@github.com:JonasLeonhard/dotfiles.git # this might require adding your ssh key to github https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent; also do: https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key
 
 sudo pacman -Sy nemo
-gsettings set org.cinnamon.desktop.default-applications.terminal exec ghostty # for nemo's terminal open feature
+gsettings set org.cinnamon.desktop.default-applications.terminal exec wezterm # for nemo's terminal open feature
 
 # AUR packages w. yay:
 git clone --branch yay --single-branch https://github.com/archlinux/aur.git yay; cd yay; makepkg -si;
 yay -S neovim-git tofi btop
 
 # GNU Stow: install dotfiles
-stow -v bat dunst ghostty git nushell nvim starship tofi waybar swaylock -t ~
+stow -v bat dunst wezterm git nushell nvim starship tofi waybar swaylock -t ~
 
 # bat theme, starship & zoxide init
 bat cache --build

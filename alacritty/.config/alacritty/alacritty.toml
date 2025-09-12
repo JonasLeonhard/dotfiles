@@ -3,11 +3,11 @@ blinking = "Off"
 shape = "Block"
 
 [env]
-SHELL = "/opt/homebrew/bin/nu"
+SHELL = "nu"
 
 [terminal.shell]
 args = ["--login"]
-program = "/opt/homebrew/bin/nu"
+program = "nu"
 
 [font]
 size = 18.0

@@ -16,4 +16,4 @@ padding-left = 10
 padding-right = 0
 selection-color = #f9e2af
 require-match = false
-terminal = ghostty -e
+terminal = wezterm -e

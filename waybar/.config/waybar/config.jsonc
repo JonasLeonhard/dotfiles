@@ -37,7 +37,7 @@
     "interval": 2,
     "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}{icon12}{icon13}{icon14}{icon15}",
     "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
-    "on-click": "ghostty -e btop"
+    "on-click": "wezterm -e btop"
   },
   "memory": {
     "interval": 30,
@@ -70,7 +70,7 @@
   },
   "pulseaudio": {
     "format": "{icon}",
-    "on-click": "ghostty -e 'wiremix'",
+    "on-click": "wezterm -e 'wiremix'",
     "tooltip-format": "Playing at {volume}%",
     "scroll-step": 5,
     "format-muted": "󰝟",

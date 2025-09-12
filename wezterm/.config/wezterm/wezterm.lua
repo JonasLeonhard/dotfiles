@@ -7,7 +7,7 @@ local config = wezterm.config_builder()
 -- -------------------------------------- Core: General Appearance ---------------------------------------
 config.font = wezterm.font 'IosevkaTerm Nerd Font'
 config.font_size = 18
-config.default_prog = { '/opt/homebrew/bin/nu' }
+config.default_prog = { 'nu' }
 
 config.color_scheme = "catppuccin-mocha"
 config.colors = {
@@ -32,7 +32,7 @@ config.window_frame = {
   font = wezterm.font { family = "IosevkaTerm Nerd Font" },
   font_size = 15.0,
 }
-config.window_decorations = "RESIZE"
+config.window_decorations = "NONE"
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.tab_max_width = 10000
