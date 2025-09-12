@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 
 -- -------------------------------------- Core: General Appearance ---------------------------------------
 config.font = wezterm.font 'IosevkaTerm Nerd Font'
-config.font_size = 18
+config.font_size = 16
 config.default_prog = { 'nu' }
 
 config.color_scheme = "catppuccin-mocha"
