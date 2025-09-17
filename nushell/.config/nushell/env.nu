@@ -40,7 +40,6 @@ $env.config.keybindings = [
 }
 ]
 
-$env.TERM = "wezterm"
 $env.config.edit_mode = 'vi'
 $env.config.cursor_shape = {
     vi_insert: line
