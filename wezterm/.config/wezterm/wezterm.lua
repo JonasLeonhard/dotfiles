@@ -8,6 +8,8 @@ local config = wezterm.config_builder()
 config.font = wezterm.font 'IosevkaTerm Nerd Font'
 config.font_size = 16
 config.default_prog = { 'nu' }
+config.term =
+'wezterm'               -- cursor display issues?: https://wezterm.org/config/lua/config/term.html?h=term#term-xterm-256color
 
 config.color_scheme = "catppuccin-mocha"
 config.colors = {
