@@ -373,6 +373,20 @@ return {
       dap.configurations.typescriptreact = ts_configurations
       dap.configurations.javascriptreact = ts_configurations
       dap.configurations.javascript = ts_configurations
+
+      dap.configurations.odin = {
+        {
+          name = "Launch Odin Executable",
+          type = "codelldb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+          args = {},
+        },
+      }
     end,
   }
 }
