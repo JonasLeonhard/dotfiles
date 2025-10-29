@@ -80,6 +80,11 @@ return {
             '<cmd>bprevious<cr>',
             desc = 'buffer prev',
           },
+          {
+            '<leader>bi',
+            '<cmd>Inspect<cr>',
+            desc = 'Inspect',
+          },
 
           -- code group,
           {
