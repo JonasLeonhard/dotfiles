@@ -79,22 +79,20 @@ return {
         "<leader>sd",
         function()
           Snacks.picker.pick({
-            source = "Directories",
+            title = "Search Directories",
             cwd = vim.fn.getcwd(),
+
             finder = function(opts, ctx)
-              return require("snacks.picker.source.proc").proc({
-                opts,
-                {
-                  cmd = "fd",
-                  args = {
-                    "--type",
-                    "d",
-                    "--hidden",
-                    "--exclude",
-                    ".git",
-                  },
+              local proc_opts = {
+                cmd = "fd",
+                args = {
+                  "--type", "d",
+                  "--hidden",
+                  "--exclude", ".git",
                 },
-              }, ctx)
+                cwd = opts.cwd,
+              }
+              return require("snacks.picker.source.proc").proc(proc_opts, ctx)
             end,
             format = "text",
 
@@ -172,22 +170,20 @@ return {
               local current_dir = oil.get_current_dir()
 
               Snacks.picker.pick({
-                source = "Directories",
+                title = "Search Directories",
                 cwd = current_dir,
+
                 finder = function(opts, ctx)
-                  return require("snacks.picker.source.proc").proc({
-                    opts,
-                    {
-                      cmd = "fd",
-                      args = {
-                        "--type",
-                        "d",
-                        "--hidden",
-                        "--exclude",
-                        ".git",
-                      },
+                  local proc_opts = {
+                    cmd = "fd",
+                    args = {
+                      "--type", "d",
+                      "--hidden",
+                      "--exclude", ".git",
                     },
-                  }, ctx)
+                    cwd = opts.cwd,
+                  }
+                  return require("snacks.picker.source.proc").proc(proc_opts, ctx)
                 end,
                 format = "text",
 
