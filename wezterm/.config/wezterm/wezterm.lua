@@ -11,7 +11,7 @@ config.default_prog = { 'nu' }
 
 config.color_scheme = "catppuccin-mocha"
 config.colors = {
-  cursor_bg = '#fab387',
+  cursor_bg = '#f9e2af',
   cursor_fg = 'black',
   background = '#0a0a0a',
   tab_bar = {
