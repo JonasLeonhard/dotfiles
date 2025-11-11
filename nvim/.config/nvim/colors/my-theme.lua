@@ -128,3 +128,8 @@ vim.api.nvim_set_hl(0, 'GitSignsAddPreview', { link = "DiffAdd" })
 vim.api.nvim_set_hl(0, 'GitSignsDeletePreview', { link = "DiffDelete" })
 vim.api.nvim_set_hl(0, 'MoreMsg', { link = "IncSearch" })
 vim.api.nvim_set_hl(0, 'Title', { link = "Normal" })
+
+-- =============================================================================
+-- | Plugin: Flash
+-- =============================================================================
+vim.api.nvim_set_hl(0, 'FlashLabel', { fg = colors.peach })

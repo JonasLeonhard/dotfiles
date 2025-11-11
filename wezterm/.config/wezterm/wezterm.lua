@@ -11,6 +11,8 @@ config.default_prog = { 'nu' }
 
 config.color_scheme = "catppuccin-mocha"
 config.colors = {
+  cursor_bg = '#fab387',
+  cursor_fg = 'black',
   background = '#0a0a0a',
   tab_bar = {
     -- The color of the strip that goes along the top of the window
