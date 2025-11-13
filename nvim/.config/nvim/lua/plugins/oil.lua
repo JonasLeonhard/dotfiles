@@ -111,7 +111,7 @@ return {
               local item = ctx.item
               if not item or not item.text then return false end
 
-              local tree_output = vim.fn.system({ "tree", item.text })
+              local tree_output = vim.fn.system({ "tree", item.text, "-L", "3" })
               vim.bo[ctx.buf].modifiable = true
               vim.api.nvim_buf_set_lines(ctx.buf, 0, -1, false, vim.split(tree_output, "\n"))
               return true
@@ -202,7 +202,7 @@ return {
                   local item = ctx.item
                   if not item or not item.text then return false end
 
-                  local tree_output = vim.fn.system({ "tree", item.text })
+                  local tree_output = vim.fn.system({ "tree", item.text, "-L", "3" })
                   vim.bo[ctx.buf].modifiable = true
                   vim.api.nvim_buf_set_lines(ctx.buf, 0, -1, false, vim.split(tree_output, "\n"))
                   return true
