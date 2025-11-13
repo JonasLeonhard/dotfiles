@@ -87,6 +87,7 @@ return {
                 cmd = "fd",
                 args = {
                   "--type", "d",
+                  "-I",
                   "--hidden",
                   "--exclude", ".git",
                 },
@@ -178,6 +179,7 @@ return {
                     cmd = "fd",
                     args = {
                       "--type", "d",
+                      "-I",
                       "--hidden",
                       "--exclude", ".git",
                     },
