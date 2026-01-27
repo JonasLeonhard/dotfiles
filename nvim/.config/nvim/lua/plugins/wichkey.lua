@@ -68,6 +68,7 @@ return {
             { 'gi', vim.lsp.buf.implementation, desc = 'Goto implementation' },
           },
 
+          { '<leader>g', desc = 'git',    mode = { 'n', 'v' } },
           -- buffer group
           { '<leader>b', desc = 'buffer', mode = { 'n', 'v' } },
           {
