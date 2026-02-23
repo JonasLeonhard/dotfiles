@@ -6,21 +6,7 @@ return {
     "nvim-surround",
     event = "DeferredUIEnter",
     after = function()
-      require("nvim-surround").setup({
-        keymaps = {
-          insert = nil,
-          insert_line = nil,
-          normal = nil,
-          normal_cur = nil,
-          normal_line = nil,
-          normal_cur_line = nil,
-          visual = "s",
-          visual_line = nil,
-          delete = "ds",
-          change = "cs",
-          change_line = nil,
-        },
-      })
+      require("nvim-surround").setup()
     end
   }
 
