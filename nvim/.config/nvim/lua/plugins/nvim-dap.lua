@@ -268,19 +268,6 @@ return {
           end,
         },
         {
-          name = 'Debug with Xdebug (remote with server->local pathMappings [/app <--> ${workspaceFolder}/site)]',
-          type = 'php',
-          request = 'launch',
-          port = function()
-            local value = tonumber(vim.fn.input 'Port: [9003] ')
-            if value ~= '' then return value end
-            return 9003
-          end,
-          pathMappings = {
-            ['/app'] = '${workspaceFolder}/site',
-          },
-        },
-        {
           name = 'Debug with Xdebug (remote with server->local pathMappings',
           type = 'php',
           request = 'launch',
