@@ -8,6 +8,8 @@ local config = wezterm.config_builder()
 config.font = wezterm.font 'IosevkaTerm Nerd Font'
 config.font_size = 16
 config.default_prog = { 'nu' }
+config.term =
+'wezterm' -- this fixes a splitscreen scrolling issue in nvim? if you don't care you should unset this, also this can cause ssh issues where the backspace is not working. cursor display issues: https://wezterm.org/config/lua/config/term.html?h=term#term-xterm-256color
 
 config.color_scheme = "catppuccin-mocha"
 config.colors = {
