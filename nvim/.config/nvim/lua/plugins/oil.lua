@@ -1,26 +1,23 @@
-local oil_window_state = {}
-local detail = false -- show extra filedata toggle
+local oil_window_to_buffer_map = {} -- maps a window id to a buffer id [window_id] = buffer_id, we use this to return to buffers later after opening oil (eg. toggle_oil)
+local detail = false                -- show extra filedata toggle
 
-local remember_window_state = function()
-  local current_win = vim.api.nvim_get_current_win()
+
+local open_oil = function(open_opts)
+  -- save where the buffer we came from for the current window to return to later
   local current_buf = vim.api.nvim_get_current_buf()
   local current_buf_filetype = vim.api.nvim_get_option_value("filetype", { buf = current_buf })
+  if current_buf_filetype ~= "oil" then
+    local current_win = vim.api.nvim_get_current_win()
 
-  if current_buf_filetype == "oil" then
-    oil_window_state[current_win] = nil
-  else
-    oil_window_state[current_win] = {
+    oil_window_to_buffer_map[current_win] = {
       original_buf = current_buf
     }
   end
-end
-
-local open_oil_with_state = function(open_opts)
-  remember_window_state()
 
   local bufname = vim.fn.expand('%:t')
   require("oil").open(open_opts, nil, function()
-    pcall(vim.cmd, '/' .. bufname .. '$') -- dont throw an error if we cant find the bufname
+    -- select the current buffer(filename) we came from, but dont throw an error if we cant find it
+    pcall(vim.cmd, '/' .. bufname .. '$')
   end)
 end
 
@@ -29,26 +26,25 @@ local toggle_oil = function(open_opts)
   local current_buf = vim.api.nvim_get_current_buf()
   local current_buf_filetype = vim.api.nvim_get_option_value("filetype", { buf = current_buf })
 
-  -- Check if current window is showing oil
   if current_buf_filetype == "oil" then
     -- We're in an oil buffer, close it and return to original buffer
-    local state = oil_window_state[current_win]
+    local state = oil_window_to_buffer_map[current_win]
     if state and state.original_buf and vim.api.nvim_buf_is_valid(state.original_buf) then
       vim.api.nvim_set_current_buf(state.original_buf)
     end
     -- Clear state for this window
-    oil_window_state[current_win] = nil
+    oil_window_to_buffer_map[current_win] = nil
   else
     -- We're in a regular buffer, open oil and remember it
-    open_oil_with_state(open_opts)
+    open_oil(open_opts)
   end
 end
 
 vim.api.nvim_create_autocmd("WinClosed", {
   callback = function(args)
     local win_id = tonumber(args.match)
-    if win_id and oil_window_state[win_id] then
-      oil_window_state[win_id] = nil
+    if win_id and oil_window_to_buffer_map[win_id] then
+      oil_window_to_buffer_map[win_id] = nil
     end
   end,
 })
@@ -102,7 +98,7 @@ return {
               if item then
                 picker:close()
                 vim.schedule(function()
-                  open_oil_with_state(item.text)
+                  open_oil(item.text)
                 end)
               end
             end,
@@ -169,6 +165,7 @@ return {
             callback = function()
               local oil = require("oil")
               local current_dir = oil.get_current_dir()
+              local opened_from_win = vim.api.nvim_get_current_win()
 
               Snacks.picker.pick({
                 title = "Search Directories",
@@ -193,8 +190,11 @@ return {
                 confirm = function(picker, item)
                   if item then
                     picker:close()
+                    if vim.api.nvim_win_is_valid(opened_from_win) then
+                      vim.api.nvim_set_current_win(opened_from_win)
+                    end
                     vim.schedule(function()
-                      open_oil_with_state(current_dir .. item.text)
+                      open_oil(current_dir .. item.text)
                     end)
                   end
                 end,
