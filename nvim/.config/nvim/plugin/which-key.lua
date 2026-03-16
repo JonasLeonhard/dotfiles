@@ -20,7 +20,7 @@ vim.schedule(function()
         { '<C-k>',     '<cmd>:m .-2<cr>==',       desc = 'Move line up' },
         { '<C-s>',     '<C-a>',                   desc = 'Increment' },
         { '<C-x>',     '<C-x>',                   desc = 'Decrement' },
-        { '<ESC>',     '<cmd>:noh <cr>',          desc = 'clear highlights' },
+        -- { '<ESC>',     '<cmd>:noh <cr>',          desc = 'clear highlights' }, -- set by multicursors for now
       },
 
       -- visual mode
