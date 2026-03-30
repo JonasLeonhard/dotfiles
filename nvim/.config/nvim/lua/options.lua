@@ -45,13 +45,13 @@ opt.tabstop = 2            -- Number of spaces tabs count for
 opt.timeoutlen = 300
 opt.undofile = true
 opt.undolevels = 10000
-opt.updatetime = 200               -- Save swap file and trigger CursorHold
-opt.virtualedit = 'block'          -- Allow cursor to move where there is no text in visual block mode
-opt.wildmode = 'longest:full,full' -- Command-line completion mode
-opt.winminwidth = 5                -- Minimum window width
-opt.wrap = false                   -- Disable line wrap
-opt.ch = 0;                        -- no command line height
-require('vim._extui').enable({})   -- experimental feature: https://github.com/neovim/neovim/pull/27855
+opt.updatetime = 200                -- Save swap file and trigger CursorHold
+opt.virtualedit = 'block'           -- Allow cursor to move where there is no text in visual block mode
+opt.wildmode = 'longest:full,full'  -- Command-line completion mode
+opt.winminwidth = 5                 -- Minimum window width
+opt.wrap = false                    -- Disable line wrap
+opt.ch = 0;                         -- no command line height
+require('vim._core.ui2').enable({}) -- :h ui2
 
 opt.laststatus = 3
 opt.nrformats = 'bin,hex,alpha,octal,'
