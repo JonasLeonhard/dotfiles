@@ -115,11 +115,15 @@ menu:
       - key: "l"
         desc: "focus-column-right"
         cmd: niri msg action focus-column-right
-        keep_open: true
+      - key: "L"
+        desc: "focus monitor right"
+        cmd: niri msg action focus-monitor-right
       - key: "h"
         desc: "focus-column-left"
         cmd: niri msg action focus-column-left
-        keep_open: true
+      - key: "H"
+        desc: "focus monitor left"
+        cmd: niri msg action focus-monitor-left
       - key: "j"
         desc: "focus-window-or-workspace-down"
         cmd: niri msg action focus-window-or-workspace-down
@@ -167,6 +171,12 @@ menu:
   - key: "j"
     desc: "focus-window-or-workspace-down"
     cmd: niri msg action focus-window-or-workspace-down
+  - key: "H"
+    desc: "focus monitor left"
+    cmd: niri msg action focus-monitor-left
+  - key: "L"
+    desc: "focus monitor left"
+    cmd: niri msg action focus-monitor-right
   - key: "k"
     desc: "focus-window-or-workspace-up"
     cmd: niri msg action focus-window-or-workspace-up
