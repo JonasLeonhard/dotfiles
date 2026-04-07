@@ -1,9 +1,7 @@
 return {
   cmd = { 'rust-analyzer' },
   filetypes = { 'rust' },
-  root_dir = function(source)
-    return vim.fs.root(source, { 'Cargo.toml', '.git' })
-  end,
+  root_dir = vim.fs.root(0, { 'Cargo.toml', '.git' }),
   settings = {
     ['rust-analyzer'] = {
       diagnostics = {

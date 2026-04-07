@@ -1,7 +1,5 @@
 return {
   cmd = { 'gopls' },
   filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
-  root_dir = function(source)
-    vim.fs.root(source, { 'go.work', 'go.mod', '.git' })
-  end
+  root_dir = vim.fs.root(0, { 'go.work', 'go.mod', '.git' })
 }

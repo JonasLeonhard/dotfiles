@@ -9,9 +9,7 @@ return {
     'typescript.tsx',
     'vue'
   },
-  root_dir = function(source)
-    return vim.fs.root(source, { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' })
-  end,
+  root_dir = vim.fs.root(0, { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' }),
   init_options = {
     hostInfo = 'neovim',
     plugins = {

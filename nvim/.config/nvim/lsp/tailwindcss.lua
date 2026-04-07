@@ -57,20 +57,18 @@ return {
     'svelte',
     -- 'templ',
   },
-  root_dir = function(source)
-    return vim.fs.root(source, {
-      'tailwind.config.js',
-      'tailwind.config.cjs',
-      'tailwind.config.mjs',
-      'tailwind.config.ts',
-      'postcss.config.js',
-      'postcss.config.cjs',
-      'postcss.config.mjs',
-      'postcss.config.ts',
-      'package.json',
-      '.git'
-    })
-  end,
+  root_dir = vim.fs.root(0, {
+    'tailwind.config.js',
+    'tailwind.config.cjs',
+    'tailwind.config.mjs',
+    'tailwind.config.ts',
+    'postcss.config.js',
+    'postcss.config.cjs',
+    'postcss.config.mjs',
+    'postcss.config.ts',
+    'package.json',
+    '.git'
+  }),
   settings = {
     tailwindCSS = {
       validate = true,

@@ -1,7 +1,5 @@
 return {
   cmd = { 'nu', '--lsp' },
   filetypes = { 'nu' },
-  root_dir = function(source)
-    return vim.fs.root(source, { '.git' })
-  end
+  root_dir = vim.fs.root(0, { '.git' })
 }

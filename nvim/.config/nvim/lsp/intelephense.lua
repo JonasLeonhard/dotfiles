@@ -1,7 +1,5 @@
 return {
   cmd = { 'intelephense', '--stdio' },
   filetypes = { 'php' },
-  root_dir = function(source)
-    return vim.fs.root(source, { 'vendor', { 'composer.json', '.git' } });
-  end,
+  root_dir = vim.fs.root(0, { 'vendor', { 'composer.json', '.git' } }),
 }
