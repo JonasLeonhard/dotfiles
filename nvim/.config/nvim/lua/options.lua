@@ -95,6 +95,38 @@ vim.diagnostic.config {
   },
 }
 
+-- :h treesitter (install to parser/{lang}.* & queries/{lang}/highlights.scm)
+-- 1. git clone https://github.com/tree-sitter/tree-sitter
+-- 2. install treesitter from the repo: cargo install --path crates/cli
+-- 3. look for a parser to install and clone it: https://github.com/tree-sitter/tree-sitter/wiki/List-of-parsers
+-- 4. tree-sitter generate; make all
+-- 5. Move the parsers: 'cp libtree-sitter-javascript.dylib ~/.config/nvim/parser/javascript.dylib'
+-- 6. Move the queries: 'mkdir ~/.config/nvim/queries/javascript; cp queries/*.scm ~/.config/nvim/queries/javascript/'
+--
+-- Use :InspectTree to check if the parser is working!
+--
+-- If your language queries extend another language (like tsx): add this at the top of each .scm file
+-- ;; inherits: javascript
+-- ;; inherits: typescript
+--
+-- If your filetypes dont match the parser name: vim.treesitter.language.register('tsx', 'typescriptreact')
+vim.treesitter.language.register('tsx', 'typescriptreact')
+vim.treesitter.language.register('tsx', 'javascriptreact')
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = '*',
+  callback = function(args)
+    -- This will now succeed for 'python' and 'lua' because Neovim
+    -- knows exactly where to find the .so files based on the lines above.
+    local ts_active = pcall(vim.treesitter.start, args.buf)
+
+    if ts_active then
+      vim.opt_local.foldmethod = 'expr'
+      vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    end
+  end,
+})
+
 -- Command's: --------------------------------------------------------------------------------------------------
 -- ToggleAutoFormat command
 local autoformatting_on = true
