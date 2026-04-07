@@ -1,5 +1,7 @@
 return {
   cmd = { 'svelteserver', '--stdio' },
   filetypes = { 'svelte' },
-  root_markers = vim.fs.root(0, { 'package.json', '.git' })
+  root_markers = function(source)
+    return vim.fs.root(source, { 'package.json', '.git' })
+  end
 }

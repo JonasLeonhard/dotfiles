@@ -11,20 +11,22 @@ return {
     'svelte',
     'astro',
   },
-  root_dir = vim.fs.root(0, {
-    '.eslintrc',
-    '.eslintrc.js',
-    '.eslintrc.cjs',
-    '.eslintrc.yaml',
-    '.eslintrc.yml',
-    '.eslintrc.json',
-    'eslint.config.js',
-    'eslint.config.mjs',
-    'eslint.config.cjs',
-    'eslint.config.ts',
-    'eslint.config.mts',
-    'eslint.config.cts',
-  }),
+  root_dir = function(source)
+    return vim.fs.root(source, {
+      '.eslintrc',
+      '.eslintrc.js',
+      '.eslintrc.cjs',
+      '.eslintrc.yaml',
+      '.eslintrc.yml',
+      '.eslintrc.json',
+      'eslint.config.js',
+      'eslint.config.mjs',
+      'eslint.config.cjs',
+      'eslint.config.ts',
+      'eslint.config.mts',
+      'eslint.config.cts',
+    })
+  end,
   settings = {
     validate = 'on',
     packageManager = nil,
@@ -48,7 +50,7 @@ return {
     -- This path is relative to the workspace folder (root dir) of the server instance.
     nodePath = '',
     -- use the workspace folder location or the file location (if no workspace folder is open) as the working directory
-    -- workingDirectory = { mode = 'location' },
+    workingDirectory = { mode = 'auto' },
     codeAction = {
       disableRuleComment = {
         enable = true,
