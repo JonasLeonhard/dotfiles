@@ -2,8 +2,254 @@
 -- looking for plugins? they are automatically loaded in /plugin
 -- If you want to update plugins: ':h vim.pack' or update via ":= vim.pack.update()", :w the buffer to confirm updates
 
--- Configure builtin neovim options (line number, folds, diagnostics, helpers, lsp's…)
-require 'options'
-require 'listchars'
-require 'nushell'
-require 'lsp'
+-- ### Configure builtin neovim options: ###############################################################################
+vim.cmd.colorscheme 'my-theme' -- loads custom theme from colors/my-theme.lua
+
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+local opt = vim.opt
+opt.synmaxcol = 500           -- disable "set syntax" for large files for better performance
+opt.breakindent = true        -- keep same indentation after break
+opt.autowrite = true          -- Enable auto write
+opt.clipboard = 'unnamedplus' -- Sync with system clipboard
+opt.conceallevel = 2          -- Hide * markup for bold and italic, but not markers with substitutions
+opt.confirm = true            -- Confirm to save changes before exiting modified buffer
+opt.cursorline = true         -- Enable highlighting of the current line
+opt.expandtab = true          -- Use spaces instead of tabs
+opt.grepformat = '%f:%l:%c:%m'
+opt.grepprg = 'rg --vimgrep'
+opt.ignorecase = true     -- Ignore case
+opt.list = true           -- Show some invisible characters (tabs...
+opt.number = true         -- Print line number
+opt.relativenumber = true -- Relative line numbers
+opt.scrolloff = 4         -- Lines of context
+opt.shiftround = true     -- Round indent
+opt.shiftwidth = 2        -- Size of an indent
+opt.shortmess:append { W = true, I = true, c = true, C = true }
+opt.showmode = false      -- Dont show mode since we have a statusline
+opt.signcolumn = 'yes'    -- Always show the signcolumn, otherwise it would shift the text each time
+opt.smartindent = true    -- Insert indents automatically
+opt.tabstop = 2           -- Number of spaces tabs count for
+opt.undofile = true
+opt.undolevels = 10000
+opt.virtualedit = 'block'           -- Allow cursor to move where there is no text in visual block mode
+opt.wrap = false                    -- Disable line wrap
+opt.ch = 0;                         -- no command line height
+opt.splitright = true               -- Put new windows right of current (eg :InspectTree)
+opt.splitbelow = true               -- Put new windows below current
+require('vim._core.ui2').enable({}) -- :h ui2
+opt.laststatus = 3
+opt.nrformats = 'bin,hex,alpha,octal,'
+
+-- Folding
+vim.o.foldmethod = "manual"
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.foldtext = '' -- keep the treesitter syntax highlighting for folds
+
+-- ### Filetype's: #########################################################################################
+vim.filetype.add({
+  extension = {
+    svx = "markdown"
+  }
+})
+
+-- ### Diagnostic's: #######################################################################################
+vim.diagnostic.config {
+  float = {
+    source = true,
+  },
+  severity_sort = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.HINT] = '󰋼 ',
+      [vim.diagnostic.severity.INFO] = ' ',
+    },
+  },
+  underline = true,
+  update_in_insert = false,
+  virtual_text = {
+    prefix = ' ', -- icon for diagnostic message
+  },
+}
+
+-- ### Treesitter: ###################################################################################################
+-- :h treesitter (install to parser/{lang}.* & queries/{lang}/highlights.scm)
+-- 1. git clone https://github.com/tree-sitter/tree-sitter
+-- 2. install treesitter from the repo: cargo install --path crates/cli
+-- 3. look for a parser to install and clone it: https://github.com/tree-sitter/tree-sitter/wiki/List-of-parsers
+-- 4. tree-sitter generate; make all
+-- 5. Move the parsers: 'cp libtree-sitter-javascript.dylib ~/.config/nvim/parser/javascript.dylib'
+-- 6. Move the queries: 'mkdir ~/.config/nvim/queries/javascript; cp queries/*.scm ~/.config/nvim/queries/javascript/'
+--
+-- Use :InspectTree to check if the parser is working!
+--
+-- If your language queries extend another language (like tsx): add this at the top of each .scm file
+-- ;; inherits: javascript
+-- ;; inherits: typescript
+--
+-- If your filetypes dont match the parser name: vim.treesitter.language.register('tsx', 'typescriptreact')
+vim.treesitter.language.register('tsx', 'typescriptreact')
+vim.treesitter.language.register('tsx', 'javascriptreact')
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = '*',
+  callback = function(args)
+    -- This will now succeed for 'python' and 'lua' because Neovim
+    -- knows exactly where to find the .so files based on the lines above.
+    pcall(vim.treesitter.start, args.buf)
+  end,
+})
+
+-- ### Command's: ##############################################################################################
+-- ToggleAutoFormat command
+local autoformatting_on = true
+
+vim.api.nvim_create_user_command('ToggleAutoFormat', function()
+  autoformatting_on = not autoformatting_on
+  vim.api.nvim_command 'doautocmd User AutoFormatToggled'
+end, {})
+
+_AutoFormatEnabled = function()
+  return autoformatting_on
+end
+
+vim.api.nvim_create_user_command('ToggleInlayHints', function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, {})
+
+
+-- Autocmd's:
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.hl.on_yank { higroup = 'YankHighlight', priority = 10000 }
+  end,
+  group = highlight_group,
+  pattern = '*',
+})
+vim.cmd [[highlight YankHighlight guifg=#000000 guibg=#FAB387 gui=nocombine]]
+
+-- ### Import LSP Data: #################################################################################################
+-- & LazyLoad all lsp/ server configurations
+local lsp_configs = {}
+for _, v in ipairs(vim.api.nvim_get_runtime_file('lsp/*', true)) do
+  local name = vim.fn.fnamemodify(v, ':t:r');
+  table.insert(lsp_configs, name)
+end
+
+vim.lsp.enable(lsp_configs)
+
+vim.api.nvim_create_user_command('LspLog', function()
+  vim.cmd(string.format('tabnew %s', vim.lsp.log.get_filename()))
+end, {
+  desc = 'Opens the Nvim LSP client log.',
+})
+
+vim.api.nvim_create_user_command('LspInfo', function()
+  vim.cmd("checkhealth vim.lsp")
+end, {
+  desc = 'Opens the Nvim LSP client log.',
+})
+
+--- ### Listchar (highlighting specific chars): #######################################################################
+--- This file adds custom highlighting for specific listchars in red, for example NonBreakingSpace and TralingSpaceChar
+local highlightThemeColors = {
+  red = "#F38BA8"
+}
+
+-- highlight listchars (non whitespace, trailing whitespace, tab) :h listchars :h list
+vim.opt.listchars = "tab:  ,trail:·,nbsp:·"
+
+local highlightListchars = function()
+  local filename = vim.fn.expand('%');
+
+  -- skip highlighting for non-files (eg- alpha dashboard.)
+  if (filename == '' or vim.bo.buftype == 'terminal' or vim.bo.buftype == 'nofile') then
+    return
+  end
+
+  -- https://vim.fandom.com/wiki/Highlight_unwanted_spaces#Highlighting_with_the_match_command
+  vim.cmd [[ syntax match NBSP " " ]] -- <-- INFO: this is a unicode nbsp character
+  vim.cmd [[ syntax match TrailingSpaceChar /\s\+$/ ]]
+  vim.api.nvim_set_hl(0, "NBSP",
+    { fg = "White", bg = highlightThemeColors.red })
+  vim.api.nvim_set_hl(0, "TrailingSpaceChar",
+    { fg = "White", bg = highlightThemeColors.red })
+end
+
+
+local deHighlightListchars = function()
+  -- https://vim.fandom.com/wiki/Highlight_unwanted_spaces#Highlighting_with_the_match_command
+  vim.api.nvim_set_hl(0, "NBSP", {})
+  vim.api.nvim_set_hl(0, "TrailingSpaceChar", {})
+end
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = highlightListchars
+})
+
+vim.api.nvim_create_autocmd("InsertEnter", {
+  callback = deHighlightListchars
+})
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+  callback = highlightListchars
+})
+
+-- ### Terminal config: ################################################################################################
+-- :h terminal
+-- Disable line numbers in terminal
+vim.cmd([[autocmd TermOpen * setlocal nonumber norelativenumber signcolumn=no]])
+-- Start in insert mode in terminal
+vim.cmd([[autocmd TermOpen * startinsert]])
+
+-- keymap for the terminal only: C-w to enter vim mode
+vim.cmd 'autocmd! TermOpen term://* lua _Set_terminal_keymaps()'
+function _Set_terminal_keymaps()
+  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], { buffer = 0 })
+end
+
+-- ### Nushell support: ##################################################################################################
+-- This will add support for tempfiles and rusing stuff like ":r! ls"
+-- credits: https://www.kiils.dk/en/blog/2024-06-22-using-nushell-in-neovim/
+
+if string.match(vim.o.shell, '/nu$') then
+  -- INFO: disable the usage of temp files for shell commands
+  -- because Nu doesn't support `input redirection` which Neovim uses to send buffer content to a command:
+  --      `{shell_command} < {temp_file_with_selected_buffer_content}`
+  -- When set to `false` the stdin pipe will be used instead.
+  -- NOTE: some info about `shelltemp`: https://github.com/neovim/neovim/issues/1008
+  vim.opt.shelltemp = false
+
+  -- string to be used to put the output of shell commands in a temp file
+  -- 1. when 'shelltemp' is `true`
+  -- 2. in the `diff-mode` (`nvim -d file1 file2`) when `diffopt` is set
+  --    to use an external diff command: `set diffopt-=internal`
+  vim.opt.shellredir = "out+err> %s"
+
+  -- flags for nu:
+  -- * `--stdin`       redirect all input to -c
+  -- * `--no-newline`  do not append `\n` to stdout
+  -- * `--commands -c` execute a command
+  vim.opt.shellcmdflag = "--stdin --no-newline -c"
+
+  -- disable all escaping and quoting
+  vim.opt.shellxescape = ""
+  vim.opt.shellxquote = ""
+  vim.opt.shellquote = ""
+
+  -- string to be used with `:make` command to:
+  -- 1. save the stderr of `makeprg` in the temp file which Neovim reads using `errorformat` to populate the `quickfix` buffer
+  -- 2. show the stdout, stderr and the return_code on the screen
+  -- NOTE: `ansi strip` removes all ansi coloring from nushell errors
+  vim.opt.shellpipe =
+  '| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record'
+end
