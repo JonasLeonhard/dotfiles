@@ -100,9 +100,8 @@ vim.treesitter.language.register('tsx', 'javascriptreact')
 vim.api.nvim_create_autocmd('FileType', {
   pattern = '*',
   callback = function(args)
-    -- This will now succeed for 'python' and 'lua' because Neovim
-    -- knows exactly where to find the .so files based on the lines above.
     pcall(vim.treesitter.start, args.buf)
+    vim.bo.autoindent = true -- use autoindent instead of treesitter indentation (treesitter turns this off after starting)
   end,
 })
 
