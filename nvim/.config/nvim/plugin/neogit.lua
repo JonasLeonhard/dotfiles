@@ -1,8 +1,5 @@
 vim.pack.add({
   {
-    src = 'https://github.com/nvim-lua/plenary.nvim', -- dependency of neogit
-  },
-  {
     src = 'https://github.com/NeogitOrg/neogit',
   }
 })
