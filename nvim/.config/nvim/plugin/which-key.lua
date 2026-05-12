@@ -8,6 +8,19 @@ vim.schedule(function()
   require("which-key").setup({
     preset = 'classic',
     show_help = false,
+    win = {
+      -- top-left, top, top-right, right, bottom-right, bottom, bottom-left, left
+      border = {
+        { "-", "WhichKeyBorderTop" },
+        { "─", "WhichKeyBorderTop" },
+        { "-", "WhichKeyBorderTop" },
+        { "", "WhichKeyBorder" },
+        { "", "WhichKeyBorder" },
+        { "", "WhichKeyBorder" },
+        { "", "WhichKeyBorder" },
+        { "", "WhichKeyBorder" },
+      },
+    },
     spec = {
       -- normal mode
       {
