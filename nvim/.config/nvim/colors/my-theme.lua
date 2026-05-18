@@ -143,7 +143,7 @@ vim.api.nvim_set_hl(0, 'WhichKeyGroup', { fg = colors.yellow, bold = true })    
 vim.api.nvim_set_hl(0, 'WhichKeyDesc', { fg = colors.text2, italic = true })                   -- Description
 vim.api.nvim_set_hl(0, 'WhichKeySeparator', { fg = colors.surface0 })                          -- The separator (e.g., ➜)
 vim.api.nvim_set_hl(0, 'WhichKeyNormal', { bg = colors.base, fg = colors.text })               -- Window background
-vim.api.nvim_set_hl(0, 'WhichKeyBorderTop', { fg = colors.text2, bg = colors.base })           -- CUSTOM
+vim.api.nvim_set_hl(0, 'WhichKeyBorderTop', { fg = colors.surface1, bg = colors.base })        -- CUSTOM
 vim.api.nvim_set_hl(0, 'WhichKeyBorder', { fg = colors.surface0, bg = colors.mantle })
 vim.api.nvim_set_hl(0, 'WhichKeyTitle', { fg = colors.yellow, bg = colors.base, bold = true }) -- Window title
 vim.api.nvim_set_hl(0, 'WhichKeyValue', { fg = colors.overlay1, italic = true })               -- Values (marks, registers, etc.)
