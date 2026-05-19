@@ -6,6 +6,7 @@ local colors = {
   redDark = "#331d23", -- TODO
   peach = "#fab387",
   yellow = "#f9e2af",
+  yellowDark = "#332e23",
   green = "#a6e3a1",
   greenDark = "#121912", -- TODO
   blue = "#89b4fa",
@@ -120,15 +121,19 @@ vim.api.nvim_set_hl(0, 'NeogitSectionHeader', { fg = colors.yellow, italic = tru
 vim.api.nvim_set_hl(0, 'SnacksPicker', { link = 'Normal' })
 
 -- =============================================================================
--- | Plugin: Gitsigns
+-- | Plugin: Mini-Diff
 -- =============================================================================
-vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg = colors.green })
-vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = colors.yellow })
-vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg = colors.red })
-vim.api.nvim_set_hl(0, 'GitSignsAddPreview', { link = "DiffAdd" })
-vim.api.nvim_set_hl(0, 'GitSignsDeletePreview', { link = "DiffDelete" })
-vim.api.nvim_set_hl(0, 'MoreMsg', { link = "IncSearch" })
-vim.api.nvim_set_hl(0, 'Title', { link = "Normal" })
+vim.api.nvim_set_hl(0, 'MiniDiffSignAdd', { fg = colors.green })
+vim.api.nvim_set_hl(0, 'MiniDiffSignChange', { fg = colors.yellow })
+vim.api.nvim_set_hl(0, 'MiniDiffSignDelete', { fg = colors.red })
+vim.api.nvim_set_hl(0, 'MiniDiffOverAdd', { link = 'DiffAdd' })
+vim.api.nvim_set_hl(0, 'MiniDiffOverChange', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'MiniDiffOverChangeBuf', { link = 'DiffText' })
+vim.api.nvim_set_hl(0, 'MiniDiffOverDelete', { link = 'DiffDelete' })
+vim.api.nvim_set_hl(0, 'MiniDiffOverContext', { bg = colors.yellowDark })
+vim.api.nvim_set_hl(0, 'MiniDiffOverContextBuf', { bg = colors.mantle })
+
+
 
 -- =============================================================================
 -- | Plugin: Flash
