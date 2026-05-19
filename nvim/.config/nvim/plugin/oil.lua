@@ -8,8 +8,16 @@ local oil_window_to_buffer_map = {} -- maps a window id to a buffer id [window_i
 local detail = false                -- show extra filedata toggle
 
 local open_oil = function(open_opts)
-  -- save where the buffer we came from for the current window to return to later
   local current_buf = vim.api.nvim_get_current_buf()
+  local buftype = vim.api.nvim_get_option_value("buftype", { buf = current_buf })
+
+  -- Prevent opening Oil in special buffers (like messages, terminal, quickfix)
+  if buftype == "nofile" or buftype == "prompt" or buftype == "quickfix" or buftype == "terminal" then
+    vim.notify("Cannot open Oil in '" .. buftype .. "' Buffers", vim.log.levels.WARN)
+    return
+  end
+
+  -- save where the buffer we came from for the current window to return to later
   local current_buf_filetype = vim.api.nvim_get_option_value("filetype", { buf = current_buf })
   if current_buf_filetype ~= "oil" then
     local current_win = vim.api.nvim_get_current_win()
