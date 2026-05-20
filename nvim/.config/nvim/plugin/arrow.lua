@@ -37,10 +37,3 @@ vim.keymap.set('n', '<C-l>', function()
   ensure_setup()
   require('arrow.ui').openMenu()
 end, { desc = 'Arrow menu' })
-
-for i = 1, 5 do
-  vim.keymap.set('n', 'g' .. i, function()
-    ensure_setup()
-    require('arrow.persist').go_to(i)
-  end, { desc = 'Arrow ' .. i })
-end
