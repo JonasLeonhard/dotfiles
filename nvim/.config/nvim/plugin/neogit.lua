@@ -16,6 +16,10 @@ vim.keymap.set('n', '<leader>gg', function()
   vim.cmd('Neogit')
 end, { desc = 'Neogit' })
 
+vim.keymap.set('n', '<leader>gl', function()
+  vim.cmd('NeogitLogCurrent')
+end, { desc = 'Log of current file' })
+
 vim.keymap.set('v', '<leader>gl', function()
   local start_line = vim.fn.line('v')
   local end_line = vim.fn.line('.')
