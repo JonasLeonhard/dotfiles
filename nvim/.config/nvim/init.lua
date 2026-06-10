@@ -252,3 +252,55 @@ if string.match(vim.o.shell, '/nu$') then
   vim.opt.shellpipe =
   '| complete | update stderr { ansi strip } | tee { get stderr | save --force --raw %s } | into record'
 end
+
+-- ### Toggler ####################################################################################################################
+-- Toggle stuff with a keybind. Eg 'true' <-> 'false' and vice versa.
+local toggle_pairs = {
+  ['true'] = 'false',
+  ['True'] = 'False',
+  ['TRUE'] = 'FALSE',
+  ['Yes'] = 'No',
+  ['YES'] = 'NO',
+  ['UP'] = 'DOWN',
+  ['LEFT'] = 'RIGHT',
+  ['left'] = 'right',
+  ['Left'] = 'Right',
+  ['TOP'] = 'BOTTOM',
+  ['top'] = 'bottom',
+  ['Top'] = 'Bottom',
+  ['1'] = '0',
+  ['<'] = '>',
+  ['('] = ')',
+  ['['] = ']',
+  ['{'] = '}',
+  ['"'] = "'",
+  ['+'] = '-',
+  ['==='] = '!==',
+  ['/'] = '\\',
+  ['const'] = 'let',
+  ['&&'] = '||',
+}
+
+local toggles_two_way = {}
+vim.schedule(function()
+  for k, v in pairs(toggle_pairs) do
+    toggles_two_way[k] = v
+    toggles_two_way[v] = k
+  end
+end)
+
+vim.keymap.set('n', '<leader>ct', function()
+  local word = vim.fn.expand('<cword>')
+
+  if toggles_two_way[word] then
+    local keys = vim.api.nvim_replace_termcodes('"_ciw' .. toggles_two_way[word] .. '<Esc>', true, false, true)
+    vim.api.nvim_feedkeys(keys, 'n', false)
+  else
+    -- this handles adjacent symbols (e.g., `({`)
+    local col = vim.fn.col('.')
+    local char = vim.fn.getline('.'):sub(col, col)
+    if toggles_two_way[char] then
+      vim.api.nvim_feedkeys('r' .. toggles_two_way[char], 'n', false)
+    end
+  end
+end, { desc = 'Toggle Cursor Alternate' })
