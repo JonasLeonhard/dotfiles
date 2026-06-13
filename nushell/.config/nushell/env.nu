@@ -55,6 +55,7 @@ $env.path ++= [
     "~/.local/share/nvim/mason/bin"
 ]
 
+$env.PROMPT_COMMAND_RIGHT = {|| "" }
 $env.PROMPT_COMMAND = {||
     const green = "#a6e3a1"
     const red = "#f38ba8"
