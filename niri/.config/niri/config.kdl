@@ -54,6 +54,10 @@ input {
         repeat-rate 65
         numlock
     }
+    mouse {
+        accel-profile "flat"
+        accel-speed 0.0
+    }
 }
 
 layout {
