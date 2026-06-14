@@ -16,6 +16,7 @@
     "bluetooth",
     "network",
     "pulseaudio",
+    "custom/terminal",
     "temperature",
     "cpu",
     "memory",
@@ -77,6 +78,11 @@
     "format-icons": {
       "default": ["", "", ""]
     }
+  },
+  "custom/terminal": {
+    "format": "   ",
+    "on-click": "wezterm",
+    "tooltip": false
   },
   "group/tray-expander": {
     "orientation": "inherit",
