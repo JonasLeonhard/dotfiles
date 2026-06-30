@@ -219,7 +219,7 @@ end
 -- ### Nushell support: ##################################################################################################
 -- This will add support for tempfiles and rusing stuff like ":r! ls"
 -- credits: https://www.kiils.dk/en/blog/2024-06-22-using-nushell-in-neovim/
-
+vim.o.shell = "nu"
 if string.match(vim.o.shell, '/nu$') then
   -- INFO: disable the usage of temp files for shell commands
   -- because Nu doesn't support `input redirection` which Neovim uses to send buffer content to a command:
