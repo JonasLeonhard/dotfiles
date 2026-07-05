@@ -34,16 +34,16 @@ vim.g.fff = {
     move_down = { '<Down>', '<C-j>' },
     preview_scroll_up = '<C-u>',
     preview_scroll_down = '<C-d>',
-    toggle_debug = '<leader>ud',
+    toggle_debug = '<C-i>',
     cycle_grep_modes = '<S-Tab>',
     -- grep mode only: jump cursor to first match of next/prev file group
     grep_jump_to_next_file = { '<C-A-n>', '<A-Down>' },
     grep_jump_to_prev_file = { '<C-A-p>', '<A-Up>' },
-    cycle_previous_query = '<C-Up>',
+    cycle_previous_query = { '<Right>', '<Left>', '<C-l>', '<C-h>' },
     toggle_select = '<Tab>',
     send_to_quickfix = '<C-q>',
-    focus_list = '<leader>l',
-    focus_preview = '<leader>p',
+    -- focus_list = '<C-l>',
+    -- focus_preview = '<C-p>',
   },
 }
 
