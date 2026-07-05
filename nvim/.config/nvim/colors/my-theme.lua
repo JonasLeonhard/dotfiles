@@ -56,6 +56,8 @@ vim.api.nvim_set_hl(0, 'Whitespace', { fg = colors.surface0 })
 vim.api.nvim_set_hl(0, 'NonText', { fg = colors.overlay1, italic = true })
 vim.api.nvim_set_hl(0, 'DiagnosticError', { fg = colors.red, italic = true })
 vim.api.nvim_set_hl(0, 'DiagnosticHint', { fg = colors.blue, italic = true })
+vim.api.nvim_set_hl(0, 'NormalFloat', { bg = colors.base })
+vim.api.nvim_set_hl(0, 'FloatBorder', { bg = colors.base, fg = colors.mantle })
 
 vim.api.nvim_set_hl(0, 'DiffAdd', { bg = colors.greenDark })
 vim.api.nvim_set_hl(0, 'DiffChange', { bg = colors.blue })
@@ -127,8 +129,6 @@ vim.api.nvim_set_hl(0, 'MiniDiffOverChangeBuf', { link = 'DiffText' })
 vim.api.nvim_set_hl(0, 'MiniDiffOverDelete', { link = 'DiffDelete' })
 vim.api.nvim_set_hl(0, 'MiniDiffOverContext', { bg = colors.yellowDark })
 vim.api.nvim_set_hl(0, 'MiniDiffOverContextBuf', { bg = colors.mantle })
-
-
 
 -- =============================================================================
 -- | Plugin: Flash

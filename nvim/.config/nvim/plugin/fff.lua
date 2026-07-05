@@ -17,7 +17,7 @@ vim.g.fff = {
     preview_size = 0.5,
     -- Border style for the picker windows. Leave unset (nil) to follow the
     -- global `vim.o.winborder`; set it to override fff's borders independently.
-    border = 'none',                         -- 'single' | 'double' | 'rounded' | 'solid' | 'shadow' | 'none'
+    border = 'single',                       -- 'single' | 'double' | 'rounded' | 'solid' | 'shadow' | 'none'
     flex = { size = 130, wrap = 'top' },
     min_list_height = 10,                    --  do not display anything except the list below this threshold
     show_scrollbar = true,
