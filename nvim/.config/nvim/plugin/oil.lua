@@ -84,81 +84,68 @@ local ensure_setup = function()
           local oil = require("oil")
           local current_dir = oil.get_current_dir()
 
-          Snacks.picker.files({
-            cwd = current_dir,
-          })
+          if current_dir then
+            -- fff.nvim has a built-in method for scoping to a specific directory
+            require("fff").find_files_in_dir(current_dir)
+          end
         end,
         mode = "n",
         nowait = true,
         desc = "Find files in the current (Oil) directory"
       },
+
       ["<leader>sg"] = {
         callback = function()
           local oil = require("oil")
           local current_dir = oil.get_current_dir()
 
-          Snacks.picker.grep({
-            cwd = current_dir,
-          })
+          if current_dir then
+            require("fff").live_grep({ cwd = current_dir })
+          end
         end,
         mode = "n",
         nowait = true,
         desc = "ripgrep in the current (Oil) directory"
       },
+
       ["<leader>sd"] = {
         callback = function()
           local oil = require("oil")
           local current_dir = oil.get_current_dir()
-          local opened_from_win = vim.api.nvim_get_current_win()
 
-          Snacks.picker.pick({
-            title = "Search Directories",
-            cwd = current_dir,
+          if not current_dir then return end
 
-            finder = function(opts, ctx)
-              local proc_opts = {
-                cmd = "fd",
-                args = {
-                  "--type", "d",
-                  "-I",
-                  "--hidden",
-                  "--exclude", ".git",
-                },
-                cwd = opts.cwd,
-              }
-              return require("snacks.picker.source.proc").proc(proc_opts, ctx)
-            end,
-            format = "text",
-
-            -- Configure action to open the selected directory in Oil
-            confirm = function(picker, item)
-              if item then
-                picker:close()
-                if vim.api.nvim_win_is_valid(opened_from_win) then
-                  vim.api.nvim_set_current_win(opened_from_win)
-                end
-                vim.schedule(function()
-                  open_oil(current_dir .. item.text)
-                end)
-              end
-            end,
-
-            -- Enable preview with tree if available
-            preview = function(ctx)
-              local item = ctx.item
-              if not item or not item.text then return false end
-
-              local tree_output = vim.fn.system({ "tree", item.text, "-L", "3" })
-              vim.bo[ctx.buf].modifiable = true
-              vim.api.nvim_buf_set_lines(ctx.buf, 0, -1, false, vim.split(tree_output, "\n"))
-              return true
-            end,
+          -- Use fd to grab directories relative to Oil's current directory
+          local dirs = vim.fn.systemlist({
+            'fd', '--type', 'd', '-I', '--hidden', '--exclude', '.git', '.', current_dir
           })
+
+          if vim.v.shell_error ~= 0 or #dirs == 0 then
+            vim.notify("No directories found or fd is not installed.", vim.log.levels.WARN)
+            return
+          end
+
+          vim.ui.select(dirs, {
+            prompt = 'Search Directories (Oil) ',
+            format_item = function(item)
+              -- Strip the base Oil directory from the path so the menu shows clean, relative paths
+              local relative_path = item:gsub("^" .. vim.pesc(current_dir), "")
+              return relative_path
+            end,
+          }, function(choice)
+            if choice then
+              -- `choice` is the full absolute path from fd, so we can just open it directly
+              vim.schedule(function()
+                require("oil").open(choice)
+              end)
+            end
+          end)
         end,
         mode = "n",
         nowait = true,
         desc = "Find subdirectories in the current (Oil) directory"
       },
+
       ["g$"] = {
         callback = function()
           local oil = require("oil")
@@ -200,30 +187,29 @@ end, { desc = 'Oil (cwd)' })
 
 vim.keymap.set('n', '<leader>sd', function()
   ensure_setup()
-  Snacks.picker.pick({
-    title = 'Search Directories',
-    cwd = vim.fn.getcwd(),
-    finder = function(opts, ctx)
-      return require('snacks.picker.source.proc').proc({
-        cmd = 'fd',
-        args = { '--type', 'd', '-I', '--hidden', '--exclude', '.git' },
-        cwd = opts.cwd,
-      }, ctx)
-    end,
-    format = 'text',
-    confirm = function(picker, item)
-      if item then
-        picker:close()
-        vim.schedule(function() open_oil(item.text) end)
-      end
-    end,
-    preview = function(ctx)
-      local item = ctx.item
-      if not item or not item.text then return false end
-      local tree_output = vim.fn.system({ 'tree', item.text, '-L', '3' })
-      vim.bo[ctx.buf].modifiable = true
-      vim.api.nvim_buf_set_lines(ctx.buf, 0, -1, false, vim.split(tree_output, '\n'))
-      return true
-    end,
+  local cwd = vim.fn.getcwd()
+
+  -- Use fd to grab directories silently via systemlist
+  local dirs = vim.fn.systemlist({
+    'fd', '--type', 'd', '-I', '--hidden', '--exclude', '.git', '.', cwd
   })
+
+  if vim.v.shell_error ~= 0 or #dirs == 0 then
+    vim.notify("No directories found or fd is not installed.", vim.log.levels.WARN)
+    return
+  end
+
+  -- Feed the results into Neovim's native UI select
+  vim.ui.select(dirs, {
+    prompt = 'Search Directories  ',
+    format_item = function(item)
+      -- Make the paths relative and cleaner to read
+      return vim.fn.fnamemodify(item, ':.')
+    end,
+  }, function(choice)
+    -- This callback triggers when you hit Enter on a selection
+    if choice then
+      vim.schedule(function() open_oil(choice) end)
+    end
+  end)
 end, { desc = 'Search Directories' })

@@ -116,11 +116,6 @@ vim.api.nvim_set_hl(0, 'OilDir', { fg = colors.yellow, italic = true })
 vim.api.nvim_set_hl(0, 'NeogitSectionHeader', { fg = colors.yellow, italic = true })
 
 -- =============================================================================
--- | Plugin: Snacks
--- =============================================================================
-vim.api.nvim_set_hl(0, 'SnacksPicker', { link = 'Normal' })
-
--- =============================================================================
 -- | Plugin: Mini-Diff
 -- =============================================================================
 vim.api.nvim_set_hl(0, 'MiniDiffSignAdd', { fg = colors.green })

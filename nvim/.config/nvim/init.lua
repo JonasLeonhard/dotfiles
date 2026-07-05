@@ -304,3 +304,55 @@ vim.keymap.set('n', '<leader>ct', function()
     end
   end
 end, { desc = 'Toggle Cursor Alternate' })
+
+--- ### Override Neovim's default UI select to be a normal buffer that you can click enter on
+vim.ui.select = function(items, opts, on_choice)
+  -- Setup fallback formatting if none is provided
+  local format_item = opts.format_item or tostring
+
+  -- Create a temporary, unlisted scratch buffer
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_set_option_value('bufhidden', 'wipe', { buf = buf })
+  vim.api.nvim_set_option_value('buftype', 'nofile', { buf = buf })
+  vim.api.nvim_set_option_value('swapfile', false, { buf = buf })
+
+  -- Populate the buffer with the formatted items
+  local lines = {}
+  for _, item in ipairs(items) do
+    table.insert(lines, format_item(item))
+  end
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.api.nvim_set_option_value('modifiable', false, { buf = buf })
+
+  -- Open a split window (max 10 lines high, or the number of items)
+  local height = math.min(10, #lines)
+  vim.cmd("botright " .. height .. "split")
+  local win = vim.api.nvim_get_current_win()
+  vim.api.nvim_win_set_buf(win, buf)
+
+  -- Setup the <CR> (Enter) mapping to confirm selection
+  vim.keymap.set('n', '<CR>', function()
+    -- Get the current line number the cursor is on
+    local cursor = vim.api.nvim_win_get_cursor(win)
+    local row = cursor[1]
+    local selected_item = items[row]
+
+    -- Close the window
+    vim.api.nvim_win_close(win, true)
+
+    -- Trigger the callback with the selected item
+    if selected_item then
+      on_choice(selected_item, row)
+    else
+      on_choice(nil, nil)
+    end
+  end, { buffer = buf, nowait = true, desc = "Confirm selection" })
+
+  -- Setup 'q' and <Esc> to cancel out of the menu easily
+  local cancel = function()
+    vim.api.nvim_win_close(win, true)
+    on_choice(nil, nil)
+  end
+  vim.keymap.set('n', 'q', cancel, { buffer = buf, nowait = true, desc = "Cancel selection" })
+  vim.keymap.set('n', '<Esc>', cancel, { buffer = buf, nowait = true, desc = "Cancel selection" })
+end
