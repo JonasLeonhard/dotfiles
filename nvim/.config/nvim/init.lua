@@ -310,13 +310,16 @@ vim.ui.select = function(items, opts, on_choice)
   -- Setup fallback formatting if none is provided
   local format_item = opts.format_item or tostring
 
+  -- Save the window you came from so we can forcefully return to it
+  local original_win = vim.api.nvim_get_current_win()
+
   -- Create a temporary, unlisted scratch buffer
   local buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_set_option_value('bufhidden', 'wipe', { buf = buf })
   vim.api.nvim_set_option_value('buftype', 'nofile', { buf = buf })
   vim.api.nvim_set_option_value('swapfile', false, { buf = buf })
 
-  -- Populate the buffer with the formatted items
+  -- Populate the buffer
   local lines = {}
   for _, item in ipairs(items) do
     table.insert(lines, format_item(item))
@@ -324,25 +327,44 @@ vim.ui.select = function(items, opts, on_choice)
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
   vim.api.nvim_set_option_value('modifiable', false, { buf = buf })
 
-  -- Open a split window (max 10 lines high, or the number of items)
   local height = math.min(10, #lines)
-  vim.cmd("botright " .. height .. "split")
-  local win = vim.api.nvim_get_current_win()
-  vim.api.nvim_win_set_buf(win, buf)
+
+  local row = vim.o.lines - height - vim.o.cmdheight
+
+  local win_opts = {
+    relative = 'editor',
+    width = vim.o.columns,
+    height = height,
+    row = row,
+    col = 0,
+    border = { "", "-", "", "", "", "", "", "" },
+    title = opts.prompt or " Select ",
+    title_pos = "left", -- "left" aligns nicely when stretched full-width
+  }
+
+  -- Open the float and automatically shift focus to it
+  local win = vim.api.nvim_open_win(buf, true, win_opts)
+
+  -- Helper function to safely tear down the UI and return focus
+  local close_menu = function()
+    if vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_close(win, true)
+    end
+    if vim.api.nvim_win_is_valid(original_win) then
+      vim.api.nvim_set_current_win(original_win)
+    end
+  end
 
   -- Setup the <CR> (Enter) mapping to confirm selection
   vim.keymap.set('n', '<CR>', function()
-    -- Get the current line number the cursor is on
     local cursor = vim.api.nvim_win_get_cursor(win)
-    local row = cursor[1]
-    local selected_item = items[row]
+    local row_idx = cursor[1]
+    local selected_item = items[row_idx]
 
-    -- Close the window
-    vim.api.nvim_win_close(win, true)
+    close_menu()
 
-    -- Trigger the callback with the selected item
     if selected_item then
-      on_choice(selected_item, row)
+      on_choice(selected_item, row_idx)
     else
       on_choice(nil, nil)
     end
@@ -350,7 +372,7 @@ vim.ui.select = function(items, opts, on_choice)
 
   -- Setup 'q' and <Esc> to cancel out of the menu easily
   local cancel = function()
-    vim.api.nvim_win_close(win, true)
+    close_menu()
     on_choice(nil, nil)
   end
   vim.keymap.set('n', 'q', cancel, { buffer = buf, nowait = true, desc = "Cancel selection" })
