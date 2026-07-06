@@ -100,6 +100,11 @@ vim.schedule(function()
         '<cmd>Inspect<cr>',
         desc = 'Inspect',
       },
+      {
+        '<leader>sr',
+        '<cmd>browse oldfiles<cr>',
+        desc = 'Browse oldfiles'
+      },
 
       -- code group,
       {
