@@ -5,6 +5,7 @@ vim.pack.add({
 })
 vim.schedule(function()
   require('mini.diff').setup({
+    style = 'number',
     mappings = {
       apply = '',
       -- Reset hunks inside a visual/operator region
