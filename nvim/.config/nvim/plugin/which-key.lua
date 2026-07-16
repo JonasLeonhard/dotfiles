@@ -164,6 +164,25 @@ vim.schedule(function()
         { '<leader>ul', '<cmd>:ToggleAutoLint<cr>',   desc = 'toggle autolint on save/insert leave/bufreadpost' },
         { '<leader>ui', '<cmd>:ToggleInlayHints<cr>', desc = 'toggle inlay hints' },
         { '<leader>ut', '<cmd>split | terminal<cr>',  desc = 'toggle terminal split' },
+        {
+          '<leader>uq',
+          function()
+            local qf_exists = false
+            for _, win in pairs(vim.fn.getwininfo()) do
+              if win.quickfix == 1 then
+                qf_exists = true
+                break
+              end
+            end
+            if qf_exists then
+              vim.cmd.cclose()
+            else
+              vim.cmd.copen()
+            end
+          end,
+          desc = 'toggle quickfix list'
+        },
+
       },
 
       -- multicursor
