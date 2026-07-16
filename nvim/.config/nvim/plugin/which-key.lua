@@ -105,6 +105,23 @@ vim.schedule(function()
         '<cmd>browse oldfiles<cr>',
         desc = 'Browse oldfiles'
       },
+      {
+        '<leader>ss',
+        function()
+          vim.lsp.buf.document_symbol({
+            on_list = function(options)
+              -- sort by lnum and col
+              table.sort(options.items, function(a, b)
+                if a.lnum ~= b.lnum then return a.lnum < b.lnum end
+                return a.col < b.col
+              end)
+              vim.fn.setqflist({}, ' ', options)
+              vim.cmd.copen()
+            end,
+          })
+        end,
+        desc = "Browser LSP Symbols"
+      },
 
       -- code group,
       {

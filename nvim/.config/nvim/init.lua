@@ -57,6 +57,14 @@ vim.filetype.add({
   }
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
+  once = true,
+  callback = function()
+    vim.cmd.packadd('cfilter') -- enable builtin ':Cfilter' quickfix filtering command
+  end,
+})
+
 -- ### Diagnostic's: #######################################################################################
 vim.diagnostic.config {
   float = {
