@@ -86,6 +86,39 @@ vim.diagnostic.config {
   },
 }
 
+-- ### Autocomplete :h ins-completion ##################################################################################################
+vim.o.completeopt = 'menu,menuone,popup,fuzzy,noinsert'
+vim.o.complete = '.,b,o'
+vim.keymap.set('i', '<C-x>', '<C-x><C-o>')
+
+local function next_or(fallback)
+  return function()
+    if vim.fn.pumvisible() == 1 then return '<UP>' end
+    if vim.snippet.active({ direction = 1 }) then
+      return '<Cmd>lua vim.snippet.jump(1)<CR>'
+    end
+    return fallback
+  end
+end
+
+local function prev_or(fallback)
+  return function()
+    if vim.fn.pumvisible() == 1 then return '<DOWN>' end
+    if vim.snippet.active({ direction = -1 }) then
+      return '<Cmd>lua vim.snippet.jump(-1)<CR>'
+    end
+    return fallback
+  end
+end
+vim.keymap.set({ 'i', 's' }, '<C-k>', next_or('<C-n>'), { expr = true })
+vim.keymap.set({ 'i', 's' }, '<C-j>', prev_or('<C-p>'), { expr = true })
+
+-- ':' wildmenu command line keys
+vim.o.wildmode = 'lastused,full'
+vim.o.wildoptions = 'pum,fuzzy'
+vim.keymap.set('c', '<C-j>', '<C-n>')
+vim.keymap.set('c', '<C-k>', '<C-p>')
+
 -- ### Treesitter: ###################################################################################################
 -- :h treesitter (install to parser/{lang}.* & queries/{lang}/highlights.scm)
 -- 1. git clone https://github.com/tree-sitter/tree-sitter
