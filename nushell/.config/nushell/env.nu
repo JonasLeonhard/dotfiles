@@ -21,7 +21,7 @@ $env.config.keybindings = [
     }
 },
 {
-    name: history_down
+    name: history_prev
     modifier: control
     keycode: char_j
     mode: [emacs, vi_normal, vi_insert]
@@ -30,7 +30,7 @@ $env.config.keybindings = [
     }
 },
 {
-    name: history_down
+    name: history_next
     modifier: control
     keycode: char_k
     mode: [emacs, vi_normal, vi_insert]
