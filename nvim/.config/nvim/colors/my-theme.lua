@@ -1,10 +1,11 @@
 vim.g.colors_name = 'my-theme'
-vim.opt.termguicolors = true -- True color support
+vim.opt.termguicolors = true -- true color support
 
 local colors = {
   red = "#f38ba8",
   redDark = "#331d23", -- TODO
   peach = "#fab387",
+  peachLight = "#f9a570",
   yellow = "#f9e2af",
   yellowDark = "#332e23",
   green = "#a6e3a1",
@@ -33,9 +34,9 @@ vim.api.nvim_set_hl(0, 'Normal', { fg = colors.text, bg = colors.base })
 vim.api.nvim_set_hl(0, 'Cursor', { bg = colors.text, fg = colors.base })
 vim.api.nvim_set_hl(0, 'CursorLine', { bg = colors.mantle })
 vim.api.nvim_set_hl(0, 'Visual', { bg = colors.surface1 })
-vim.api.nvim_set_hl(0, 'Search', { bg = colors.yellow, fg = colors.base })
+vim.api.nvim_set_hl(0, 'Search', { bg = colors.peach, fg = colors.base })
 vim.api.nvim_set_hl(0, 'IncSearch', { bg = colors.peach, fg = colors.base })
-vim.api.nvim_set_hl(0, 'CurSearch', { bg = colors.peach, fg = colors.base })
+vim.api.nvim_set_hl(0, 'CurSearch', { bg = colors.peachLight, fg = colors.base })
 vim.api.nvim_set_hl(0, 'LineNr', { fg = colors.surface0 })
 vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = colors.yellow })
 vim.api.nvim_set_hl(0, 'SignColumn', { bg = colors.base })
@@ -58,6 +59,10 @@ vim.api.nvim_set_hl(0, 'DiagnosticError', { fg = colors.red, italic = true })
 vim.api.nvim_set_hl(0, 'DiagnosticHint', { fg = colors.blue, italic = true })
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = colors.base })
 vim.api.nvim_set_hl(0, 'FloatBorder', { bg = colors.base, fg = colors.mantle })
+vim.api.nvim_set_hl(0, 'MCursor',
+  { underline = true, sp = colors.base, bg = colors.text, fg = colors.base })
+vim.api.nvim_set_hl(0, 'MCursorVisual',
+  { underline = true, sp = colors.surface1, bg = colors.surface1 })
 
 vim.api.nvim_set_hl(0, 'DiffAdd', { bg = colors.greenDark })
 vim.api.nvim_set_hl(0, 'DiffChange', { bg = colors.blue })
