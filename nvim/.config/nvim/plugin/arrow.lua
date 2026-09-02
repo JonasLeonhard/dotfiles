@@ -10,7 +10,7 @@ local ensure_setup = function()
   require('arrow').setup({
     global_bookmarks = true,
     show_icons = true,
-    leader_key = '<C-l>',
+    leader_key = '<C-p>',
     buffer_leader_key = 'm',
     mappings = {
       edit = 'e',
@@ -33,7 +33,7 @@ vim.keymap.set({ 'v', 'n' }, 'm', function()
   require('arrow.persist').toggle()
 end, { desc = 'Arrow toggle' })
 
-vim.keymap.set('n', '<C-l>', function()
+vim.keymap.set('n', '<C-p>', function()
   ensure_setup()
   require('arrow.ui').openMenu()
 end, { desc = 'Arrow menu' })
