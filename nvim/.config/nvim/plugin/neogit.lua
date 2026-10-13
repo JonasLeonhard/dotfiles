@@ -6,9 +6,6 @@ vim.pack.add({
 
 vim.schedule(function()
   require('neogit').setup({
-    commit_editor = {
-      show_staged_diff = false, -- INFO: Disabled because this freezes neogit for very large commits
-    },
     sections = {
       stashes = {
         folded = true,
