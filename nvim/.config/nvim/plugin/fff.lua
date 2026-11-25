@@ -4,9 +4,6 @@ vim.pack.add({
   }
 })
 
--- fff Insearch is overridden by cursorline atm. This can probably removed once the plugin fixes the highlight group
-vim.api.nvim_set_hl(0, 'FffTransparentCursor', { bg = 'NONE' })
-
 vim.g.fff = {
   lazy_sync = true,
   debug = { enabled = false, show_scores = true },
